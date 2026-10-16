@@ -604,8 +604,8 @@ beginning of each line, but this must be done consistently within a file.
 <span class="Summary">Keep branching preprocessor directives left-aligned and
 un-indented.</span>
 
-Keep branching preprocessor directives (`` `ifdef``, `` `ifndef``, `` `else``,
-`` `elsif``, `` `endif``) aligned to the left, even if they are nested. Indent
+Keep branching preprocessor directives (`` `ifdef ``, `` `ifndef ``, `` `else ``,
+`` `elsif ``, `` `endif ``) aligned to the left, even if they are nested. Indent
 the conditional branches of text as if the preprocessor directives were absent.
 Non-branching preprocessor directives must follow the same indentation rules as
 the regular code.
@@ -1207,7 +1207,7 @@ summarized in the following table:
 
 Construct                                                                                          | Style
 -------------------------------------------------------------------------------------------------- | -----
-[\`define macros](#defines)                                                                        | `ALL_CAPS`
+[`` `define `` macros](#defines)                                                                   | `ALL_CAPS`
 [Tunable parameters for parameterized modules, classes, and interfaces](#naming-module-parameters) | `UpperCamelCase`
 [Constants](#naming-constants)                                                                     | `UpperCamelCase`
 [Type `parameter`](#naming-module-parameters)                                                      | `lower_snake_case_t`
@@ -1896,7 +1896,7 @@ pragmas.
 macro files.</span>
 
 Global macro files are distinct from [include files](#include-files). Global
-macro files may not be included using `` `include``. They are intended to be
+macro files may not be included using `` `include ``. They are intended to be
 visible by all source files in a project.
 
 <a id="defines"></a>
@@ -1933,8 +1933,8 @@ avoid polluting the global macro namespace. To indicate that a macro is only
 meant to be used in the local scope, the macro name must be prefixed with a
 single underscore.
 
-To ensure that local defines stay local, be careful not to `` `include`` other
-files between the macro definition and `` `undef``.
+To ensure that local defines stay local, be careful not to `` `include `` other
+files between the macro definition and `` `undef ``.
 
 Example:
 
@@ -2074,12 +2074,12 @@ on` and `read_comments_as_hdl off`, `parallel case`, and `full case`. Do not use
 these pragmas.
 
 <a id="ifdef-directives"></a>
-### `` `ifdef`` Directives
+### `` `ifdef `` Directives
 
-<span class="Summary">Do not use `` `ifdef``, `` `else``, `` `elsif``, or ``
-`ifndef`` compiler directives except as prescribed.</span>
+<span class="Summary">Do not use `` `ifdef ``, `` `else ``, `` `elsif ``, or ``
+`ifndef `` compiler directives except as prescribed.</span>
 
-Avoid `` `ifdef`` whenever possible. Misuse of `` `ifdef``-style compiler
+Avoid `` `ifdef `` whenever possible. Misuse of `` `ifdef ``-style compiler
 directives can negatively impact code coverage, and can lead to a mismatch
 between simulation and synthesis. For most use cases, separate source units or
 generate-if statements provide a better solution.
@@ -2087,7 +2087,7 @@ generate-if statements provide a better solution.
 The following exceptions are permitted.
 
 <a id="ifdef-simulation"></a>
-#### `` `ifdef SIMULATION``
+#### `` `ifdef SIMULATION ``
 
 May only be used additively, to add debug logic or logging statements.
 SIMULATION will typically be defined in simulation environments, and will never
@@ -2115,7 +2115,7 @@ end
 ```
 
 <a id="ifdef-assert_on"></a>
-#### `` `ifdef ASSERT_ON``
+#### `` `ifdef ASSERT_ON ``
 
 May only be used additively, to add assertions or assertion-specific modeling
 code. This enables an easy path to disable assertions in cases where faster
@@ -2144,16 +2144,16 @@ credits_never_underflow: assert property (
 ```
 
 <a id="ifdef-fpv_on"></a>
-#### `` `ifdef FPV_ON``
+#### `` `ifdef FPV_ON ``
 
 May only be used additively, to add monitors and logic used exclusively by
 formal property verification tools.
 
 <a id="ifdef-simulator"></a>
-#### `` `ifdef <simulator>``
+#### `` `ifdef <simulator> ``
 
 Some simulators have simulator-specific debug features that need preprocessor
-guards. No functional RTL must ever be enclosed by an `` `ifdef <simulator>``
+guards. No functional RTL must ever be enclosed by an `` `ifdef <simulator> ``
 block.
 
 The legal names to identify supported simulators are:
@@ -2172,13 +2172,13 @@ The legal names to identify supported simulators are:
 ```
 
 <a id="ifdef-technology"></a>
-#### `` `ifdef <technology>``
+#### `` `ifdef <technology> ``
 
-It is permitted to use `` `ifdef`` directives to select between implementations
+It is permitted to use `` `ifdef `` directives to select between implementations
 enabled by specific technologies (standard cell libraries, emulation, processes,
 FPGA architectures).
 
-If used, there must always be a valid `` `else`` clause that describes a default
+If used, there must always be a valid `` `else `` clause that describes a default
 implementation. There must also be unit tests that exercise all technology
 cases.
 
@@ -2188,12 +2188,12 @@ Some of the standard names are:
 *   `FPGA`: for FPGA-specific code.
 
 <a id="ifdef-antipatterns"></a>
-#### `` `ifdef`` Anti-patterns
+#### `` `ifdef `` Anti-patterns
 
-Do not enable features with `` `ifdef``. Instead, use parameters and generate-if
+Do not enable features with `` `ifdef ``. Instead, use parameters and generate-if
 statements.
 
-Do not use directives similar to `` `ifdef DISABLED`` to disable blocks of code.
+Do not use directives similar to `` `ifdef DISABLED `` to disable blocks of code.
 Delete dead code instead.
 
 Do not use include guards. Use a properly ordered compilation file list (flist)
@@ -2201,16 +2201,16 @@ so that include guards are unnecessary. See the
 [Include Guards](#include-guards) section for more details.
 
 <a id="ifdef-exceptions"></a>
-#### `` `ifdef`` Exceptions
+#### `` `ifdef `` Exceptions
 
 There are always unanticipated exceptional scenarios. If your project must use
-non-standard `` `ifdef`` directives, follow the following guidelines:
+non-standard `` `ifdef `` directives, follow the following guidelines:
 
 *   The canonical design that gets deployed is what is represented with no
     defines set.
 
 *   Clearly document and justify your macro in the project documentation (no "ad
-    hoc" `` `ifdef`` macros).
+    hoc" `` `ifdef `` macros).
 
 *   Prefix your macro names with a unique project namespace identifier. For
     example, `FOOBAR__DEBUG` is preferable to `DEBUG` to avoid namespace
@@ -2225,13 +2225,13 @@ non-standard `` `ifdef`` directives, follow the following guidelines:
 <a id="include-files"></a>
 #### Include Files
 
-<span class="Summary">Files intended for [`` `include``](#include-directives)
+<span class="Summary">Files intended for [`` `include ``](#include-directives)
 are referred to as "include files".</span>
 
 <a id="include-directives"></a>
 #### Include Directives
 
-<span class="Summary">Use `` `include`` directives only to include files into a
+<span class="Summary">Use `` `include `` directives only to include files into a
 verilog package file or to include files with code snippets.</span>
 
 Include directives used for the purpose of compiling each file standalone are
@@ -2305,11 +2305,11 @@ unit. They must not be used since the current style guide rule on the use of
 <a id="stopping-compilation"></a>
 ### Stopping Compilation
 
-<span class="Summary">Use the `` `DIE()`` macro to fail compilation.</span>
+<span class="Summary">Use the `` `DIE() `` macro to fail compilation.</span>
 
 Using this (undefined) macro allows the source file to be parsed by tools that
 lack preprocessing, such as code search and IDE outline generators. Pass an
-explanation as a string to `` `DIE``. This convention does not depend on any
+explanation as a string to `` `DIE ``. This convention does not depend on any
 other macro files.
 
 <div class='goodcode'></div>
@@ -3521,7 +3521,6 @@ function automatic bit foo(input int a, output int b, inout int c, ref int d);
 task automatic foo(ref int a, int b);
 ```
 
-<a id="seq-logic"></a>
 ## Sequential Logic
 
 <a id="always_ff-vs-always"></a>
@@ -3560,8 +3559,6 @@ Unless absolutely necessary, use flip-flops or registers instead of latches.
 
 If you must use a latch, use `always_latch` over `always`, and use non-blocking
 assignments (`<=`). Never use blocking assignments (`=`).
-
-<a id="sequential-logic"></a>
 
 <a id="sequential-logic-registers"></a>
 ### Sequential Logic (Registers)
@@ -3677,7 +3674,8 @@ increment.
 [Reusable IP](#reusable-ip) must consistently implement all three varieties of
 reset (synchronous reset, asynchronous reset, and configuration-time
 initialization) so that the non-preferred reset schemes can be disabled at
-implementation time. See [Sequential Logic](#sequential-logic) for more details.
+implementation time. See [Sequential Logic](#sequential-logic-registers) for
+more details.
 
 <a id="delays"></a>
 ### Delay Modeling
@@ -5548,25 +5546,25 @@ endclass
 <a id="uvm-logging"></a>
 #### UVM Logging
 
-<span class="Summary">Only use `` `uvm_info``, `` `uvm_error``, and ``
-`uvm_fatal`` UVM messaging macros for message logging in UVM
+<span class="Summary">Only use `` `uvm_info ``, `` `uvm_error ``, and ``
+`uvm_fatal `` UVM messaging macros for message logging in UVM
 environments.</span>
 
 Only use the following UVM macros to display log messages in UVM environments:
 
--   `` `uvm_info(ID, message, verbosity)``: For informational messages.
--   `` `uvm_error(ID, message)``: For messages indicating a problem that needs
+-   `` `uvm_info(ID, message, verbosity) ``: For informational messages.
+-   `` `uvm_error(ID, message) ``: For messages indicating a problem that needs
     to be addressed.
--   `` `uvm_fatal(ID, message)``: For messages indicating a critical problem
+-   `` `uvm_fatal(ID, message) ``: For messages indicating a critical problem
     that stops the simulation.
 
 Do not call underlying UVM functions like `uvm_report_*`. Macros provide better
 control over verbosity, timestamping, and component identification.
 
-Do not use the `` `uvm_warning`` macro. Categorize messages as informational
+Do not use the `` `uvm_warning `` macro. Categorize messages as informational
 (info) or as conveying an issue that needs to be addressed (error or fatal).
 Although forbidden, it's recommended to setup your infrastructure to treat ``
-`uvm_warning`` as errors.
+`uvm_warning `` as errors.
 
 <div class='goodcode'></div>
 
@@ -5587,8 +5585,8 @@ uvm_report_info("ID", "Debug message", UVM_LOW)
 
 <span class="Summary">Do not append a semicolon to UVM macro calls.</span>
 
-UVM macros (including messaging macros like `` `uvm_info`` and sequence action
-macros like `` `uvm_do``) must not be followed by a semicolon. Appending a
+UVM macros (including messaging macros like `` `uvm_info `` and sequence action
+macros like `` `uvm_do ``) must not be followed by a semicolon. Appending a
 semicolon can result in an empty statement, which can cause syntax errors in
 contexts like `if` statements without `begin` / `end` blocks.
 
